@@ -22,8 +22,9 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-alicloud/apis/oss/v1alpha1"
+	v1alpha1apis "github.com/crossplane-contrib/provider-jet-alicloud/apis/v1alpha1"
+	v1alpha1vpc "github.com/crossplane-contrib/provider-jet-alicloud/apis/vpc/v1alpha1"
 )
 
 func init() {
@@ -31,6 +32,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
+		v1alpha1vpc.SchemeBuilder.AddToScheme,
 	)
 }
 
