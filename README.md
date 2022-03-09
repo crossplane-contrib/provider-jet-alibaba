@@ -3,17 +3,46 @@
 `provider-jet-alicloud` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Terrajet](https://github.com/crossplane/terrajet) code
 generation tools and exposes XRM-conformant managed resources for the 
-Alicloud API.
+Alibaba Cloud API.
 
 ## Getting Started
 
+- Install Alibaba Cloud provider
+
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://github.com/crossplane-contrib/provider-jet-alicloud/releases):
-```
-kubectl crossplane install provider crossplane/provider-jet-alicloud:v0.1.0
+to the [latest release](https://github.com/crossplane-contrib/provider-jet-alibaba/releases):
+
+```shell
+$ kubectl crossplane install provider crossplane/provider-jet-alicloud:v0.1.0
 ```
 
-You can see the API reference [here](https://doc.crds.dev/github.com/crossplane-contrib/provider-jet-alicloud).
+- Authenticate Alibaba Cloud
+
+Update `accessKeyID` and `accessKeySecret` in [secret.yaml](./examples/providerconfig/secret.yaml) with your Alibaba Cloud credentials and
+apply it.
+
+```shell
+$ kubectl apply -f examples/providerconfig/secret.yaml
+```
+
+- Provision Cloud resources
+
+Let's take Alibaba Cloud VPC as an example.
+
+```shell
+$ kubectl apply -f examples/sample/vpc.yaml
+......
+vpc-example   True    True     vpc-2zexzf5ocsgm0vc4jriyr   48s
+```
+
+You can see the API reference [here](https://doc.crds.dev/github.com/crossplane-contrib/provider-jet-alibaba) to set cloud resources.
+
+- Destroy Cloud resources
+
+```shell
+$ kubectl delete vpc.vpc.alicloud.jet.crossplane.io vpc-example
+vpc.vpc.alicloud.jet.crossplane.io "vpc-example" deleted
+```
 
 ## Developing
 

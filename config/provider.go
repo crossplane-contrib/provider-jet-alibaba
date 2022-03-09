@@ -19,11 +19,12 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
-	oss "github.com/crossplane-contrib/provider-jet-alicloud/config/oss/bucket"
 
-	"github.com/crossplane-contrib/provider-jet-alicloud/config/vpc"
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	oss "github.com/crossplane-contrib/provider-jet-alicloud/config/oss/bucket"
+	"github.com/crossplane-contrib/provider-jet-alicloud/config/vpc"
 )
 
 const (

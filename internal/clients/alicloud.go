@@ -31,15 +31,15 @@ import (
 )
 
 const (
-	AccessKeyID     = "accessKeyID"
-	AccessKeySecret = "accessKeySecret"
-	SecurityToken   = "securityToken"
-	Region          = "region"
+	accessKeyID     = "accessKeyID"
+	accessKeySecret = "accessKeySecret"
+	securityToken   = "securityToken"
+	region          = "region"
 
-	// Alicloud credentials environment variable names
-	envAlicloudAcessKey  = "ALICLOUD_ACCESS_KEY"
-	envAlicloudSecretKey = "ALICLOUD_SECRET_KEY"
-	envAlicloudRegion    = "ALICLOUD_REGION"
+	// Alibaba Cloud credentials environment variable names
+	envAliCloudAcessKey  = "ALICLOUD_ACCESS_KEY"
+	envAliCloudSecretKey = "ALICLOUD_SECRET_KEY"
+	envAliCloudRegion    = "ALICLOUD_REGION"
 	envAliCloudStsToken  = "ALICLOUD_SECURITY_TOKEN"
 )
 
@@ -84,21 +84,21 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		alicloudCreds := map[string]string{}
-		if err := json.Unmarshal(data, &alicloudCreds); err != nil {
+		aliCloudCreds := map[string]string{}
+		if err := json.Unmarshal(data, &aliCloudCreds); err != nil {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
-			"region": alicloudCreds[Region],
+			"region": aliCloudCreds[region],
 		}
 		// set environment variables for sensitive provider configuration
 		ps.Env = []string{
-			fmt.Sprintf(fmtEnvVar, envAlicloudAcessKey, alicloudCreds[AccessKeyID]),
-			fmt.Sprintf(fmtEnvVar, envAlicloudSecretKey, alicloudCreds[AccessKeySecret]),
-			fmt.Sprintf(fmtEnvVar, envAlicloudRegion, alicloudCreds[Region]),
-			fmt.Sprintf(fmtEnvVar, envAliCloudStsToken, alicloudCreds[SecurityToken]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudAcessKey, aliCloudCreds[accessKeyID]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudSecretKey, aliCloudCreds[accessKeySecret]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudRegion, aliCloudCreds[region]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudStsToken, aliCloudCreds[securityToken]),
 		}
 		return ps, nil
 	}
