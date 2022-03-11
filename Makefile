@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME := provider-jet-alicloud
+PROJECT_NAME := provider-jet-alibaba
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.1.6
@@ -51,7 +51,7 @@ GO111MODULE = on
 # Setup Images
 
 DOCKER_REGISTRY ?= crossplane
-IMAGES = provider-jet-alicloud provider-jet-alicloud-controller
+IMAGES = provider-jet-alibaba provider-jet-alibaba-controller
 -include build/makelib/image.mk
 
 # ====================================================================================

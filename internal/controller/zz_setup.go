@@ -21,9 +21,9 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	bucket "github.com/crossplane-contrib/provider-jet-alicloud/internal/controller/oss/bucket"
-	providerconfig "github.com/crossplane-contrib/provider-jet-alicloud/internal/controller/providerconfig"
-	vpc "github.com/crossplane-contrib/provider-jet-alicloud/internal/controller/vpc/vpc"
+	bucket "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/oss/bucket"
+	providerconfig "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/providerconfig"
+	vpc "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/vpc/vpc"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to

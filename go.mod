@@ -1,4 +1,4 @@
-module github.com/crossplane-contrib/provider-jet-alicloud
+module github.com/crossplane-contrib/provider-jet-alibaba
 
 go 1.17
 
@@ -99,5 +99,3 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.0 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
-
-replace github.com/crossplane-contrib/provider-jet-alicloud => /Users/zhouzhengxi/Programming/golang/src/github.com/zzxwill/provider-jet-alibaba2

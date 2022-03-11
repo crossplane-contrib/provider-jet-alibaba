@@ -32,10 +32,10 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/crossplane-contrib/provider-jet-alicloud/apis"
-	"github.com/crossplane-contrib/provider-jet-alicloud/config"
-	"github.com/crossplane-contrib/provider-jet-alicloud/internal/clients"
-	"github.com/crossplane-contrib/provider-jet-alicloud/internal/controller"
+	"github.com/crossplane-contrib/provider-jet-alibaba/apis"
+	"github.com/crossplane-contrib/provider-jet-alibaba/config"
+	"github.com/crossplane-contrib/provider-jet-alibaba/internal/clients"
+	"github.com/crossplane-contrib/provider-jet-alibaba/internal/controller"
 )
 
 func main() {

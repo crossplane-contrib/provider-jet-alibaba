@@ -22,9 +22,9 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-alicloud/apis/oss/v1alpha1"
-	v1alpha1apis "github.com/crossplane-contrib/provider-jet-alicloud/apis/v1alpha1"
-	v1alpha1vpc "github.com/crossplane-contrib/provider-jet-alicloud/apis/vpc/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-alibaba/apis/oss/v1alpha1"
+	v1alpha1apis "github.com/crossplane-contrib/provider-jet-alibaba/apis/v1alpha1"
+	v1alpha1vpc "github.com/crossplane-contrib/provider-jet-alibaba/apis/vpc/v1alpha1"
 )
 
 func init() {

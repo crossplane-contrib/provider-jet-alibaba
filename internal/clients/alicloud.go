@@ -27,7 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/crossplane-contrib/provider-jet-alicloud/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-jet-alibaba/apis/v1alpha1"
 )
 
 const (

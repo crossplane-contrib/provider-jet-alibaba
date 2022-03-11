@@ -23,13 +23,13 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
-	oss "github.com/crossplane-contrib/provider-jet-alicloud/config/oss/bucket"
-	"github.com/crossplane-contrib/provider-jet-alicloud/config/vpc"
+	oss "github.com/crossplane-contrib/provider-jet-alibaba/config/oss/bucket"
+	"github.com/crossplane-contrib/provider-jet-alibaba/config/vpc"
 )
 
 const (
 	resourcePrefix = "alicloud"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-alicloud"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-alibaba"
 )
 
 //go:embed schema.json
