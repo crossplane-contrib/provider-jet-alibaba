@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: resources.null.template.jet.crossplane.io
+  name: vpcs.vpc.alicloud.jet.crossplane.io
 spec:
-  group: null.template.jet.crossplane.io
+  group: vpc.alicloud.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - templatejet
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - alicloudjet
+    kind: VPC
+    listKind: VPCList
+    plural: vpcs
+    singular: vpc
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API
+        description: VPC is the Schema for the VPCs API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: VPCSpec defines the desired state of VPC
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,13 +63,30 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
+                  cidrBlock:
+                    type: string
+                  description:
+                    type: string
+                  dryRun:
+                    type: boolean
+                  enableIpv6:
+                    type: boolean
+                  resourceGroupId:
+                    type: string
+                  secondaryCidrBlocks:
+                    items:
+                      type: string
+                    type: array
+                  tags:
                     additionalProperties:
                       type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
                     type: object
+                  userCidrs:
+                    items:
+                      type: string
+                    type: array
+                  vpcName:
+                    type: string
                 type: object
               providerConfigRef:
                 default:
@@ -116,11 +133,21 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: VPCStatus defines the observed state of VPC.
             properties:
               atProvider:
                 properties:
                   id:
+                    type: string
+                  ipv6CidrBlock:
+                    type: string
+                  routeTableId:
+                    type: string
+                  routerId:
+                    type: string
+                  routerTableId:
+                    type: string
+                  status:
                     type: string
                 type: object
               conditions:

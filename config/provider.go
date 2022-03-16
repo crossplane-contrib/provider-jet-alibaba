@@ -22,11 +22,14 @@ import (
 
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	oss "github.com/crossplane-contrib/provider-jet-alibaba/config/oss/bucket"
+	"github.com/crossplane-contrib/provider-jet-alibaba/config/vpc"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "alicloud"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-alibaba"
 )
 
 //go:embed schema.json
@@ -42,10 +45,16 @@ func GetProvider() *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+		tjconfig.WithIncludeList([]string{
+			"alicloud_vpc$",
+			"alicloud_oss_bucket$",
+		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
+		vpc.Configure,
+		oss.Configure,
 	} {
 		configure(pc)
 	}

@@ -27,17 +27,20 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-jet-alibaba/apis/v1alpha1"
 )
 
 const (
-	keyUsername = "username"
-	keyPassword = "password"
-	keyHost     = "host"
+	accessKeyID     = "accessKeyID"
+	accessKeySecret = "accessKeySecret"
+	securityToken   = "securityToken"
+	region          = "region"
 
-	// Template credentials environment variable names
-	envUsername = "HASHICUPS_USERNAME"
-	envPassword = "HASHICUPS_PASSWORD"
+	// Alibaba Cloud credentials environment variable names
+	envAliCloudAcessKey  = "ALICLOUD_ACCESS_KEY"
+	envAliCloudSecretKey = "ALICLOUD_SECRET_KEY"
+	envAliCloudRegion    = "ALICLOUD_REGION"
+	envAliCloudStsToken  = "ALICLOUD_SECURITY_TOKEN"
 )
 
 const (
@@ -48,7 +51,7 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal alicloud credentials as JSON"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -81,19 +84,21 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		templateCreds := map[string]string{}
-		if err := json.Unmarshal(data, &templateCreds); err != nil {
+		aliCloudCreds := map[string]string{}
+		if err := json.Unmarshal(data, &aliCloudCreds); err != nil {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
-			"host": templateCreds[keyHost],
+			"region": aliCloudCreds[region],
 		}
 		// set environment variables for sensitive provider configuration
 		ps.Env = []string{
-			fmt.Sprintf(fmtEnvVar, envUsername, templateCreds[keyUsername]),
-			fmt.Sprintf(fmtEnvVar, envPassword, templateCreds[keyPassword]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudAcessKey, aliCloudCreds[accessKeyID]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudSecretKey, aliCloudCreds[accessKeySecret]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudRegion, aliCloudCreds[region]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudStsToken, aliCloudCreds[securityToken]),
 		}
 		return ps, nil
 	}
