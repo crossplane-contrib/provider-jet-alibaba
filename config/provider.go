@@ -23,6 +23,8 @@ import (
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
+	"github.com/crossplane-contrib/provider-jet-alibaba/config/instance"
+	"github.com/crossplane-contrib/provider-jet-alibaba/config/managed_kubernetes"
 	oss "github.com/crossplane-contrib/provider-jet-alibaba/config/oss/bucket"
 	"github.com/crossplane-contrib/provider-jet-alibaba/config/vpc"
 )
@@ -49,12 +51,16 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithIncludeList([]string{
 			"alicloud_vpc$",
 			"alicloud_oss_bucket$",
+			"alicloud_instance$",
+			"alicloud_cs_managed_kubernetes$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
 		vpc.Configure,
 		oss.Configure,
+		instance.Configure,
+		managed_kubernetes.Configure,
 	} {
 		configure(pc)
 	}
