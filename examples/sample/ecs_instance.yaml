@@ -1,0 +1,14 @@
+apiVersion: instance.alicloud.jet.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: ecs-example
+spec:
+  forProvider:
+    instanceName: "jet"
+    imageId: "centos_8_5_x64_20G_alibase_20220303.vhd"
+    instanceType: "ecs.n1.medium"
+    securityGroups:
+        - "0.0.0.0/0"
+
+  providerConfigRef:
+    name: default
