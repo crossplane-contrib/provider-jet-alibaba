@@ -22,9 +22,6 @@ import (
 
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-
-	oss "github.com/crossplane-contrib/provider-jet-alibaba/config/oss/bucket"
-	"github.com/crossplane-contrib/provider-jet-alibaba/config/vpc"
 )
 
 const (
@@ -46,15 +43,16 @@ func GetProvider() *tjconfig.Provider {
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(defaultResourceFn),
-		tjconfig.WithIncludeList([]string{
-			"alicloud_vpc$",
-			"alicloud_oss_bucket$",
+		tjconfig.WithSkipList([]string{
+			// the resource name is `import`, which will cause corruption by `import import` in .go file
+			"alicloud_image_import$",
+			// the resource name is `interface`, which will cause corruption by `import interface` in .go file
+			"alicloud_network_interface$",
+			"alicloud_router_interface$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
-		vpc.Configure,
-		oss.Configure,
 	} {
 		configure(pc)
 	}
