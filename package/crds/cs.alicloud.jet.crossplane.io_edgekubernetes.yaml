@@ -1,0 +1,324 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: edgekubernetes.cs.alicloud.jet.crossplane.io
+spec:
+  group: cs.alicloud.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - alicloudjet
+    kind: EdgeKubernetes
+    listKind: EdgeKubernetesList
+    plural: edgekubernetes
+    singular: edgekubernetes
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: EdgeKubernetes is the Schema for the EdgeKubernetess API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EdgeKubernetesSpec defines the desired state of EdgeKubernetes
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  addons:
+                    items:
+                      properties:
+                        config:
+                          type: string
+                        disabled:
+                          type: boolean
+                        name:
+                          type: string
+                      type: object
+                    type: array
+                  availabilityZone:
+                    type: string
+                  clientCert:
+                    type: string
+                  clientKey:
+                    type: string
+                  clusterCaCert:
+                    type: string
+                  deletionProtection:
+                    type: boolean
+                  forceUpdate:
+                    type: boolean
+                  installCloudMonitor:
+                    type: boolean
+                  isEnterpriseSecurityGroup:
+                    type: boolean
+                  keyName:
+                    type: string
+                  kubeConfig:
+                    type: string
+                  logConfig:
+                    items:
+                      properties:
+                        project:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - type
+                      type: object
+                    type: array
+                  newNatGateway:
+                    type: boolean
+                  nodeCidrMask:
+                    type: number
+                  passwordSecretRef:
+                    description: A SecretKeySelector is a reference to a secret key
+                      in an arbitrary namespace.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  podCidr:
+                    type: string
+                  proxyMode:
+                    type: string
+                  rdsInstances:
+                    items:
+                      type: string
+                    type: array
+                  resourceGroupId:
+                    type: string
+                  retainResources:
+                    items:
+                      type: string
+                    type: array
+                  securityGroupId:
+                    type: string
+                  serviceCidr:
+                    type: string
+                  slbInternetEnabled:
+                    type: boolean
+                  tags:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  userData:
+                    type: string
+                  version:
+                    type: string
+                  workerDataDisks:
+                    items:
+                      properties:
+                        autoSnapshotPolicyId:
+                          type: string
+                        category:
+                          type: string
+                        device:
+                          type: string
+                        encrypted:
+                          type: string
+                        kmsKeyId:
+                          type: string
+                        name:
+                          type: string
+                        performanceLevel:
+                          type: string
+                        size:
+                          type: string
+                        snapshotId:
+                          type: string
+                      type: object
+                    type: array
+                  workerDiskCategory:
+                    type: string
+                  workerDiskPerformanceLevel:
+                    type: string
+                  workerDiskSize:
+                    type: number
+                  workerDiskSnapshotPolicyId:
+                    type: string
+                  workerInstanceChargeType:
+                    type: string
+                  workerInstanceTypes:
+                    items:
+                      type: string
+                    type: array
+                  workerNumber:
+                    type: number
+                  workerVswitchIds:
+                    items:
+                      type: string
+                    type: array
+                required:
+                - workerInstanceTypes
+                - workerNumber
+                - workerVswitchIds
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: EdgeKubernetesStatus defines the observed state of EdgeKubernetes.
+            properties:
+              atProvider:
+                properties:
+                  certificateAuthority:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  connections:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  id:
+                    type: string
+                  natGatewayId:
+                    type: string
+                  slbInternet:
+                    type: string
+                  slbIntranet:
+                    type: string
+                  vpcId:
+                    type: string
+                  workerNodes:
+                    items:
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

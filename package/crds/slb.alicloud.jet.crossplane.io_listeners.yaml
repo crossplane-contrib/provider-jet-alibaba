@@ -1,0 +1,266 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: listeners.slb.alicloud.jet.crossplane.io
+spec:
+  group: slb.alicloud.jet.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - alicloudjet
+    kind: Listener
+    listKind: ListenerList
+    plural: listeners
+    singular: listener
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Listener is the Schema for the Listeners API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ListenerSpec defines the desired state of Listener
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  aclId:
+                    type: string
+                  aclStatus:
+                    type: string
+                  aclType:
+                    type: string
+                  backendPort:
+                    type: number
+                  bandwidth:
+                    type: number
+                  caCertificateId:
+                    type: string
+                  cookie:
+                    type: string
+                  cookieTimeout:
+                    type: number
+                  deleteProtectionValidation:
+                    type: boolean
+                  description:
+                    type: string
+                  enableHttp2:
+                    type: string
+                  establishedTimeout:
+                    type: number
+                  forwardPort:
+                    type: number
+                  frontendPort:
+                    type: number
+                  gzip:
+                    type: boolean
+                  healthCheck:
+                    type: string
+                  healthCheckConnectPort:
+                    type: number
+                  healthCheckDomain:
+                    type: string
+                  healthCheckHttpCode:
+                    type: string
+                  healthCheckInterval:
+                    type: number
+                  healthCheckMethod:
+                    type: string
+                  healthCheckTimeout:
+                    type: number
+                  healthCheckType:
+                    type: string
+                  healthCheckUri:
+                    type: string
+                  healthyThreshold:
+                    type: number
+                  idleTimeout:
+                    type: number
+                  instancePort:
+                    type: number
+                  lbPort:
+                    type: number
+                  lbProtocol:
+                    type: string
+                  listenerForward:
+                    type: string
+                  loadBalancerId:
+                    type: string
+                  masterSlaveServerGroupId:
+                    type: string
+                  persistenceTimeout:
+                    type: number
+                  protocol:
+                    type: string
+                  requestTimeout:
+                    type: number
+                  scheduler:
+                    type: string
+                  serverCertificateId:
+                    type: string
+                  serverGroupId:
+                    type: string
+                  sslCertificateId:
+                    type: string
+                  stickySession:
+                    type: string
+                  stickySessionType:
+                    type: string
+                  tlsCipherPolicy:
+                    type: string
+                  unhealthyThreshold:
+                    type: number
+                  xForwardedFor:
+                    items:
+                      properties:
+                        retriveSlbId:
+                          type: boolean
+                        retriveSlbIp:
+                          type: boolean
+                        retriveSlbProto:
+                          type: boolean
+                      type: object
+                    type: array
+                required:
+                - frontendPort
+                - loadBalancerId
+                - protocol
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: ListenerStatus defines the observed state of Listener.
+            properties:
+              atProvider:
+                properties:
+                  id:
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

@@ -22,17 +22,259 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-alibaba/apis/oss/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-alibaba/apis/actiontrail/v1alpha1"
+	v1alpha1adb "github.com/crossplane-contrib/provider-jet-alibaba/apis/adb/v1alpha1"
+	v1alpha1alb "github.com/crossplane-contrib/provider-jet-alibaba/apis/alb/v1alpha1"
+	v1alpha1alicloud "github.com/crossplane-contrib/provider-jet-alibaba/apis/alicloud/v1alpha1"
+	v1alpha1alidns "github.com/crossplane-contrib/provider-jet-alibaba/apis/alidns/v1alpha1"
+	v1alpha1alikafka "github.com/crossplane-contrib/provider-jet-alibaba/apis/alikafka/v1alpha1"
+	v1alpha1amqp "github.com/crossplane-contrib/provider-jet-alibaba/apis/amqp/v1alpha1"
+	v1alpha1api "github.com/crossplane-contrib/provider-jet-alibaba/apis/api/v1alpha1"
+	v1alpha1arms "github.com/crossplane-contrib/provider-jet-alibaba/apis/arms/v1alpha1"
+	v1alpha1auto "github.com/crossplane-contrib/provider-jet-alibaba/apis/auto/v1alpha1"
+	v1alpha1bastionhost "github.com/crossplane-contrib/provider-jet-alibaba/apis/bastionhost/v1alpha1"
+	v1alpha1brain "github.com/crossplane-contrib/provider-jet-alibaba/apis/brain/v1alpha1"
+	v1alpha1cas "github.com/crossplane-contrib/provider-jet-alibaba/apis/cas/v1alpha1"
+	v1alpha1cassandra "github.com/crossplane-contrib/provider-jet-alibaba/apis/cassandra/v1alpha1"
+	v1alpha1cddc "github.com/crossplane-contrib/provider-jet-alibaba/apis/cddc/v1alpha1"
+	v1alpha1cdn "github.com/crossplane-contrib/provider-jet-alibaba/apis/cdn/v1alpha1"
+	v1alpha1cen "github.com/crossplane-contrib/provider-jet-alibaba/apis/cen/v1alpha1"
+	v1alpha1click "github.com/crossplane-contrib/provider-jet-alibaba/apis/click/v1alpha1"
+	v1alpha1cloud "github.com/crossplane-contrib/provider-jet-alibaba/apis/cloud/v1alpha1"
+	v1alpha1cloudauth "github.com/crossplane-contrib/provider-jet-alibaba/apis/cloudauth/v1alpha1"
+	v1alpha1cms "github.com/crossplane-contrib/provider-jet-alibaba/apis/cms/v1alpha1"
+	v1alpha1common "github.com/crossplane-contrib/provider-jet-alibaba/apis/common/v1alpha1"
+	v1alpha1config "github.com/crossplane-contrib/provider-jet-alibaba/apis/config/v1alpha1"
+	v1alpha1container "github.com/crossplane-contrib/provider-jet-alibaba/apis/container/v1alpha1"
+	v1alpha1copy "github.com/crossplane-contrib/provider-jet-alibaba/apis/copy/v1alpha1"
+	v1alpha1cr "github.com/crossplane-contrib/provider-jet-alibaba/apis/cr/v1alpha1"
+	v1alpha1cs "github.com/crossplane-contrib/provider-jet-alibaba/apis/cs/v1alpha1"
+	v1alpha1data "github.com/crossplane-contrib/provider-jet-alibaba/apis/data/v1alpha1"
+	v1alpha1database "github.com/crossplane-contrib/provider-jet-alibaba/apis/database/v1alpha1"
+	v1alpha1datahub "github.com/crossplane-contrib/provider-jet-alibaba/apis/datahub/v1alpha1"
+	v1alpha1db "github.com/crossplane-contrib/provider-jet-alibaba/apis/db/v1alpha1"
+	v1alpha1dbfs "github.com/crossplane-contrib/provider-jet-alibaba/apis/dbfs/v1alpha1"
+	v1alpha1dcdn "github.com/crossplane-contrib/provider-jet-alibaba/apis/dcdn/v1alpha1"
+	v1alpha1ddosbgp "github.com/crossplane-contrib/provider-jet-alibaba/apis/ddosbgp/v1alpha1"
+	v1alpha1ddoscoo "github.com/crossplane-contrib/provider-jet-alibaba/apis/ddoscoo/v1alpha1"
+	v1alpha1dfs "github.com/crossplane-contrib/provider-jet-alibaba/apis/dfs/v1alpha1"
+	v1alpha1direct "github.com/crossplane-contrib/provider-jet-alibaba/apis/direct/v1alpha1"
+	v1alpha1disk "github.com/crossplane-contrib/provider-jet-alibaba/apis/disk/v1alpha1"
+	v1alpha1dms "github.com/crossplane-contrib/provider-jet-alibaba/apis/dms/v1alpha1"
+	v1alpha1dns "github.com/crossplane-contrib/provider-jet-alibaba/apis/dns/v1alpha1"
+	v1alpha1drds "github.com/crossplane-contrib/provider-jet-alibaba/apis/drds/v1alpha1"
+	v1alpha1dts "github.com/crossplane-contrib/provider-jet-alibaba/apis/dts/v1alpha1"
+	v1alpha1eais "github.com/crossplane-contrib/provider-jet-alibaba/apis/eais/v1alpha1"
+	v1alpha1ecd "github.com/crossplane-contrib/provider-jet-alibaba/apis/ecd/v1alpha1"
+	v1alpha1eci "github.com/crossplane-contrib/provider-jet-alibaba/apis/eci/v1alpha1"
+	v1alpha1ecp "github.com/crossplane-contrib/provider-jet-alibaba/apis/ecp/v1alpha1"
+	v1alpha1ecs "github.com/crossplane-contrib/provider-jet-alibaba/apis/ecs/v1alpha1"
+	v1alpha1edas "github.com/crossplane-contrib/provider-jet-alibaba/apis/edas/v1alpha1"
+	v1alpha1ehpc "github.com/crossplane-contrib/provider-jet-alibaba/apis/ehpc/v1alpha1"
+	v1alpha1eip "github.com/crossplane-contrib/provider-jet-alibaba/apis/eip/v1alpha1"
+	v1alpha1eipanycast "github.com/crossplane-contrib/provider-jet-alibaba/apis/eipanycast/v1alpha1"
+	v1alpha1elasticsearch "github.com/crossplane-contrib/provider-jet-alibaba/apis/elasticsearch/v1alpha1"
+	v1alpha1emr "github.com/crossplane-contrib/provider-jet-alibaba/apis/emr/v1alpha1"
+	v1alpha1ens "github.com/crossplane-contrib/provider-jet-alibaba/apis/ens/v1alpha1"
+	v1alpha1ess "github.com/crossplane-contrib/provider-jet-alibaba/apis/ess/v1alpha1"
+	v1alpha1event "github.com/crossplane-contrib/provider-jet-alibaba/apis/event/v1alpha1"
+	v1alpha1express "github.com/crossplane-contrib/provider-jet-alibaba/apis/express/v1alpha1"
+	v1alpha1fc "github.com/crossplane-contrib/provider-jet-alibaba/apis/fc/v1alpha1"
+	v1alpha1fnf "github.com/crossplane-contrib/provider-jet-alibaba/apis/fnf/v1alpha1"
+	v1alpha1forward "github.com/crossplane-contrib/provider-jet-alibaba/apis/forward/v1alpha1"
+	v1alpha1ga "github.com/crossplane-contrib/provider-jet-alibaba/apis/ga/v1alpha1"
+	v1alpha1gpdb "github.com/crossplane-contrib/provider-jet-alibaba/apis/gpdb/v1alpha1"
+	v1alpha1graph "github.com/crossplane-contrib/provider-jet-alibaba/apis/graph/v1alpha1"
+	v1alpha1havip "github.com/crossplane-contrib/provider-jet-alibaba/apis/havip/v1alpha1"
+	v1alpha1hbase "github.com/crossplane-contrib/provider-jet-alibaba/apis/hbase/v1alpha1"
+	v1alpha1hbr "github.com/crossplane-contrib/provider-jet-alibaba/apis/hbr/v1alpha1"
+	v1alpha1image "github.com/crossplane-contrib/provider-jet-alibaba/apis/image/v1alpha1"
+	v1alpha1imm "github.com/crossplane-contrib/provider-jet-alibaba/apis/imm/v1alpha1"
+	v1alpha1imp "github.com/crossplane-contrib/provider-jet-alibaba/apis/imp/v1alpha1"
+	v1alpha1iot "github.com/crossplane-contrib/provider-jet-alibaba/apis/iot/v1alpha1"
+	v1alpha1key "github.com/crossplane-contrib/provider-jet-alibaba/apis/key/v1alpha1"
+	v1alpha1kms "github.com/crossplane-contrib/provider-jet-alibaba/apis/kms/v1alpha1"
+	v1alpha1kvstore "github.com/crossplane-contrib/provider-jet-alibaba/apis/kvstore/v1alpha1"
+	v1alpha1launch "github.com/crossplane-contrib/provider-jet-alibaba/apis/launch/v1alpha1"
+	v1alpha1lindorm "github.com/crossplane-contrib/provider-jet-alibaba/apis/lindorm/v1alpha1"
+	v1alpha1log "github.com/crossplane-contrib/provider-jet-alibaba/apis/log/v1alpha1"
+	v1alpha1logtail "github.com/crossplane-contrib/provider-jet-alibaba/apis/logtail/v1alpha1"
+	v1alpha1market "github.com/crossplane-contrib/provider-jet-alibaba/apis/market/v1alpha1"
+	v1alpha1maxcompute "github.com/crossplane-contrib/provider-jet-alibaba/apis/maxcompute/v1alpha1"
+	v1alpha1mhub "github.com/crossplane-contrib/provider-jet-alibaba/apis/mhub/v1alpha1"
+	v1alpha1mns "github.com/crossplane-contrib/provider-jet-alibaba/apis/mns/v1alpha1"
+	v1alpha1mongodb "github.com/crossplane-contrib/provider-jet-alibaba/apis/mongodb/v1alpha1"
+	v1alpha1msc "github.com/crossplane-contrib/provider-jet-alibaba/apis/msc/v1alpha1"
+	v1alpha1mse "github.com/crossplane-contrib/provider-jet-alibaba/apis/mse/v1alpha1"
+	v1alpha1nas "github.com/crossplane-contrib/provider-jet-alibaba/apis/nas/v1alpha1"
+	v1alpha1nat "github.com/crossplane-contrib/provider-jet-alibaba/apis/nat/v1alpha1"
+	v1alpha1network "github.com/crossplane-contrib/provider-jet-alibaba/apis/network/v1alpha1"
+	v1alpha1ons "github.com/crossplane-contrib/provider-jet-alibaba/apis/ons/v1alpha1"
+	v1alpha1oos "github.com/crossplane-contrib/provider-jet-alibaba/apis/oos/v1alpha1"
+	v1alpha1open "github.com/crossplane-contrib/provider-jet-alibaba/apis/open/v1alpha1"
+	v1alpha1oss "github.com/crossplane-contrib/provider-jet-alibaba/apis/oss/v1alpha1"
+	v1alpha1ots "github.com/crossplane-contrib/provider-jet-alibaba/apis/ots/v1alpha1"
+	v1alpha1polardb "github.com/crossplane-contrib/provider-jet-alibaba/apis/polardb/v1alpha1"
+	v1alpha1privatelink "github.com/crossplane-contrib/provider-jet-alibaba/apis/privatelink/v1alpha1"
+	v1alpha1pvtz "github.com/crossplane-contrib/provider-jet-alibaba/apis/pvtz/v1alpha1"
+	v1alpha1quick "github.com/crossplane-contrib/provider-jet-alibaba/apis/quick/v1alpha1"
+	v1alpha1quotas "github.com/crossplane-contrib/provider-jet-alibaba/apis/quotas/v1alpha1"
+	v1alpha1ram "github.com/crossplane-contrib/provider-jet-alibaba/apis/ram/v1alpha1"
+	v1alpha1rdc "github.com/crossplane-contrib/provider-jet-alibaba/apis/rdc/v1alpha1"
+	v1alpha1rds "github.com/crossplane-contrib/provider-jet-alibaba/apis/rds/v1alpha1"
+	v1alpha1reserved "github.com/crossplane-contrib/provider-jet-alibaba/apis/reserved/v1alpha1"
+	v1alpha1resource "github.com/crossplane-contrib/provider-jet-alibaba/apis/resource/v1alpha1"
+	v1alpha1ros "github.com/crossplane-contrib/provider-jet-alibaba/apis/ros/v1alpha1"
+	v1alpha1route "github.com/crossplane-contrib/provider-jet-alibaba/apis/route/v1alpha1"
+	v1alpha1router "github.com/crossplane-contrib/provider-jet-alibaba/apis/router/v1alpha1"
+	v1alpha1sae "github.com/crossplane-contrib/provider-jet-alibaba/apis/sae/v1alpha1"
+	v1alpha1sag "github.com/crossplane-contrib/provider-jet-alibaba/apis/sag/v1alpha1"
+	v1alpha1scdn "github.com/crossplane-contrib/provider-jet-alibaba/apis/scdn/v1alpha1"
+	v1alpha1sddp "github.com/crossplane-contrib/provider-jet-alibaba/apis/sddp/v1alpha1"
+	v1alpha1security "github.com/crossplane-contrib/provider-jet-alibaba/apis/security/v1alpha1"
+	v1alpha1service "github.com/crossplane-contrib/provider-jet-alibaba/apis/service/v1alpha1"
+	v1alpha1simple "github.com/crossplane-contrib/provider-jet-alibaba/apis/simple/v1alpha1"
+	v1alpha1slb "github.com/crossplane-contrib/provider-jet-alibaba/apis/slb/v1alpha1"
+	v1alpha1snapshot "github.com/crossplane-contrib/provider-jet-alibaba/apis/snapshot/v1alpha1"
+	v1alpha1snat "github.com/crossplane-contrib/provider-jet-alibaba/apis/snat/v1alpha1"
+	v1alpha1ssl "github.com/crossplane-contrib/provider-jet-alibaba/apis/ssl/v1alpha1"
+	v1alpha1tsdb "github.com/crossplane-contrib/provider-jet-alibaba/apis/tsdb/v1alpha1"
 	v1alpha1apis "github.com/crossplane-contrib/provider-jet-alibaba/apis/v1alpha1"
+	v1alpha1video "github.com/crossplane-contrib/provider-jet-alibaba/apis/video/v1alpha1"
+	v1alpha1vod "github.com/crossplane-contrib/provider-jet-alibaba/apis/vod/v1alpha1"
 	v1alpha1vpc "github.com/crossplane-contrib/provider-jet-alibaba/apis/vpc/v1alpha1"
+	v1alpha1vpn "github.com/crossplane-contrib/provider-jet-alibaba/apis/vpn/v1alpha1"
+	v1alpha1waf "github.com/crossplane-contrib/provider-jet-alibaba/apis/waf/v1alpha1"
+	v1alpha1yundun "github.com/crossplane-contrib/provider-jet-alibaba/apis/yundun/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1adb.SchemeBuilder.AddToScheme,
+		v1alpha1alb.SchemeBuilder.AddToScheme,
+		v1alpha1alicloud.SchemeBuilder.AddToScheme,
+		v1alpha1alidns.SchemeBuilder.AddToScheme,
+		v1alpha1alikafka.SchemeBuilder.AddToScheme,
+		v1alpha1amqp.SchemeBuilder.AddToScheme,
+		v1alpha1api.SchemeBuilder.AddToScheme,
+		v1alpha1arms.SchemeBuilder.AddToScheme,
+		v1alpha1auto.SchemeBuilder.AddToScheme,
+		v1alpha1bastionhost.SchemeBuilder.AddToScheme,
+		v1alpha1brain.SchemeBuilder.AddToScheme,
+		v1alpha1cas.SchemeBuilder.AddToScheme,
+		v1alpha1cassandra.SchemeBuilder.AddToScheme,
+		v1alpha1cddc.SchemeBuilder.AddToScheme,
+		v1alpha1cdn.SchemeBuilder.AddToScheme,
+		v1alpha1cen.SchemeBuilder.AddToScheme,
+		v1alpha1click.SchemeBuilder.AddToScheme,
+		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1cloudauth.SchemeBuilder.AddToScheme,
+		v1alpha1cms.SchemeBuilder.AddToScheme,
+		v1alpha1common.SchemeBuilder.AddToScheme,
+		v1alpha1config.SchemeBuilder.AddToScheme,
+		v1alpha1container.SchemeBuilder.AddToScheme,
+		v1alpha1copy.SchemeBuilder.AddToScheme,
+		v1alpha1cr.SchemeBuilder.AddToScheme,
+		v1alpha1cs.SchemeBuilder.AddToScheme,
+		v1alpha1data.SchemeBuilder.AddToScheme,
+		v1alpha1database.SchemeBuilder.AddToScheme,
+		v1alpha1datahub.SchemeBuilder.AddToScheme,
+		v1alpha1db.SchemeBuilder.AddToScheme,
+		v1alpha1dbfs.SchemeBuilder.AddToScheme,
+		v1alpha1dcdn.SchemeBuilder.AddToScheme,
+		v1alpha1ddosbgp.SchemeBuilder.AddToScheme,
+		v1alpha1ddoscoo.SchemeBuilder.AddToScheme,
+		v1alpha1dfs.SchemeBuilder.AddToScheme,
+		v1alpha1direct.SchemeBuilder.AddToScheme,
+		v1alpha1disk.SchemeBuilder.AddToScheme,
+		v1alpha1dms.SchemeBuilder.AddToScheme,
+		v1alpha1dns.SchemeBuilder.AddToScheme,
+		v1alpha1drds.SchemeBuilder.AddToScheme,
+		v1alpha1dts.SchemeBuilder.AddToScheme,
+		v1alpha1eais.SchemeBuilder.AddToScheme,
+		v1alpha1ecd.SchemeBuilder.AddToScheme,
+		v1alpha1eci.SchemeBuilder.AddToScheme,
+		v1alpha1ecp.SchemeBuilder.AddToScheme,
+		v1alpha1ecs.SchemeBuilder.AddToScheme,
+		v1alpha1edas.SchemeBuilder.AddToScheme,
+		v1alpha1ehpc.SchemeBuilder.AddToScheme,
+		v1alpha1eip.SchemeBuilder.AddToScheme,
+		v1alpha1eipanycast.SchemeBuilder.AddToScheme,
+		v1alpha1elasticsearch.SchemeBuilder.AddToScheme,
+		v1alpha1emr.SchemeBuilder.AddToScheme,
+		v1alpha1ens.SchemeBuilder.AddToScheme,
+		v1alpha1ess.SchemeBuilder.AddToScheme,
+		v1alpha1event.SchemeBuilder.AddToScheme,
+		v1alpha1express.SchemeBuilder.AddToScheme,
+		v1alpha1fc.SchemeBuilder.AddToScheme,
+		v1alpha1fnf.SchemeBuilder.AddToScheme,
+		v1alpha1forward.SchemeBuilder.AddToScheme,
+		v1alpha1ga.SchemeBuilder.AddToScheme,
+		v1alpha1gpdb.SchemeBuilder.AddToScheme,
+		v1alpha1graph.SchemeBuilder.AddToScheme,
+		v1alpha1havip.SchemeBuilder.AddToScheme,
+		v1alpha1hbase.SchemeBuilder.AddToScheme,
+		v1alpha1hbr.SchemeBuilder.AddToScheme,
+		v1alpha1image.SchemeBuilder.AddToScheme,
+		v1alpha1imm.SchemeBuilder.AddToScheme,
+		v1alpha1imp.SchemeBuilder.AddToScheme,
+		v1alpha1iot.SchemeBuilder.AddToScheme,
+		v1alpha1key.SchemeBuilder.AddToScheme,
+		v1alpha1kms.SchemeBuilder.AddToScheme,
+		v1alpha1kvstore.SchemeBuilder.AddToScheme,
+		v1alpha1launch.SchemeBuilder.AddToScheme,
+		v1alpha1lindorm.SchemeBuilder.AddToScheme,
+		v1alpha1log.SchemeBuilder.AddToScheme,
+		v1alpha1logtail.SchemeBuilder.AddToScheme,
+		v1alpha1market.SchemeBuilder.AddToScheme,
+		v1alpha1maxcompute.SchemeBuilder.AddToScheme,
+		v1alpha1mhub.SchemeBuilder.AddToScheme,
+		v1alpha1mns.SchemeBuilder.AddToScheme,
+		v1alpha1mongodb.SchemeBuilder.AddToScheme,
+		v1alpha1msc.SchemeBuilder.AddToScheme,
+		v1alpha1mse.SchemeBuilder.AddToScheme,
+		v1alpha1nas.SchemeBuilder.AddToScheme,
+		v1alpha1nat.SchemeBuilder.AddToScheme,
+		v1alpha1network.SchemeBuilder.AddToScheme,
+		v1alpha1ons.SchemeBuilder.AddToScheme,
+		v1alpha1oos.SchemeBuilder.AddToScheme,
+		v1alpha1open.SchemeBuilder.AddToScheme,
+		v1alpha1oss.SchemeBuilder.AddToScheme,
+		v1alpha1ots.SchemeBuilder.AddToScheme,
+		v1alpha1polardb.SchemeBuilder.AddToScheme,
+		v1alpha1privatelink.SchemeBuilder.AddToScheme,
+		v1alpha1pvtz.SchemeBuilder.AddToScheme,
+		v1alpha1quick.SchemeBuilder.AddToScheme,
+		v1alpha1quotas.SchemeBuilder.AddToScheme,
+		v1alpha1ram.SchemeBuilder.AddToScheme,
+		v1alpha1rdc.SchemeBuilder.AddToScheme,
+		v1alpha1rds.SchemeBuilder.AddToScheme,
+		v1alpha1reserved.SchemeBuilder.AddToScheme,
+		v1alpha1resource.SchemeBuilder.AddToScheme,
+		v1alpha1ros.SchemeBuilder.AddToScheme,
+		v1alpha1route.SchemeBuilder.AddToScheme,
+		v1alpha1router.SchemeBuilder.AddToScheme,
+		v1alpha1sae.SchemeBuilder.AddToScheme,
+		v1alpha1sag.SchemeBuilder.AddToScheme,
+		v1alpha1scdn.SchemeBuilder.AddToScheme,
+		v1alpha1sddp.SchemeBuilder.AddToScheme,
+		v1alpha1security.SchemeBuilder.AddToScheme,
+		v1alpha1service.SchemeBuilder.AddToScheme,
+		v1alpha1simple.SchemeBuilder.AddToScheme,
+		v1alpha1slb.SchemeBuilder.AddToScheme,
+		v1alpha1snapshot.SchemeBuilder.AddToScheme,
+		v1alpha1snat.SchemeBuilder.AddToScheme,
+		v1alpha1ssl.SchemeBuilder.AddToScheme,
+		v1alpha1tsdb.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
+		v1alpha1video.SchemeBuilder.AddToScheme,
+		v1alpha1vod.SchemeBuilder.AddToScheme,
 		v1alpha1vpc.SchemeBuilder.AddToScheme,
+		v1alpha1vpn.SchemeBuilder.AddToScheme,
+		v1alpha1waf.SchemeBuilder.AddToScheme,
+		v1alpha1yundun.SchemeBuilder.AddToScheme,
 	)
 }
 
