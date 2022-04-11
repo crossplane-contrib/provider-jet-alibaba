@@ -25,18 +25,18 @@ import (
 	"github.com/crossplane/terrajet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Bucket
-func (mg *Bucket) GetTerraformResourceType() string {
-	return "alicloud_oss_bucket"
+// GetTerraformResourceType returns Terraform resource type for this ManagedKubernetes
+func (mg *ManagedKubernetes) GetTerraformResourceType() string {
+	return "alicloud_cs_managed_kubernetes"
 }
 
-// GetConnectionDetailsMapping for this Bucket
-func (tr *Bucket) GetConnectionDetailsMapping() map[string]string {
-	return nil
+// GetConnectionDetailsMapping for this ManagedKubernetes
+func (tr *ManagedKubernetes) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"password": "spec.forProvider.passwordSecretRef"}
 }
 
-// GetObservation of this Bucket
-func (tr *Bucket) GetObservation() (map[string]interface{}, error) {
+// GetObservation of this ManagedKubernetes
+func (tr *ManagedKubernetes) GetObservation() (map[string]interface{}, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -45,8 +45,8 @@ func (tr *Bucket) GetObservation() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Bucket
-func (tr *Bucket) SetObservation(obs map[string]interface{}) error {
+// SetObservation for this ManagedKubernetes
+func (tr *ManagedKubernetes) SetObservation(obs map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -54,16 +54,16 @@ func (tr *Bucket) SetObservation(obs map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Bucket
-func (tr *Bucket) GetID() string {
+// GetID returns ID of underlying Terraform resource of this ManagedKubernetes
+func (tr *ManagedKubernetes) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Bucket
-func (tr *Bucket) GetParameters() (map[string]interface{}, error) {
+// GetParameters of this ManagedKubernetes
+func (tr *ManagedKubernetes) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (tr *Bucket) GetParameters() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Bucket
-func (tr *Bucket) SetParameters(params map[string]interface{}) error {
+// SetParameters for this ManagedKubernetes
+func (tr *ManagedKubernetes) SetParameters(params map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -81,10 +81,10 @@ func (tr *Bucket) SetParameters(params map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this Bucket using its observed tfState.
+// LateInitialize this ManagedKubernetes using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Bucket) LateInitialize(attrs []byte) (bool, error) {
-	params := &BucketParameters{}
+func (tr *ManagedKubernetes) LateInitialize(attrs []byte) (bool, error) {
+	params := &ManagedKubernetesParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -95,6 +95,6 @@ func (tr *Bucket) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Bucket) GetTerraformSchemaVersion() int {
+func (tr *ManagedKubernetes) GetTerraformSchemaVersion() int {
 	return 0
 }

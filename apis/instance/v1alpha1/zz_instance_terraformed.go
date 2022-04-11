@@ -25,18 +25,18 @@ import (
 	"github.com/crossplane/terrajet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this VPC
-func (mg *VPC) GetTerraformResourceType() string {
-	return "alicloud_vpc"
+// GetTerraformResourceType returns Terraform resource type for this Instance
+func (mg *Instance) GetTerraformResourceType() string {
+	return "alicloud_instance"
 }
 
-// GetConnectionDetailsMapping for this VPC
-func (tr *VPC) GetConnectionDetailsMapping() map[string]string {
-	return nil
+// GetConnectionDetailsMapping for this Instance
+func (tr *Instance) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"password": "spec.forProvider.passwordSecretRef"}
 }
 
-// GetObservation of this VPC
-func (tr *VPC) GetObservation() (map[string]interface{}, error) {
+// GetObservation of this Instance
+func (tr *Instance) GetObservation() (map[string]interface{}, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -45,8 +45,8 @@ func (tr *VPC) GetObservation() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this VPC
-func (tr *VPC) SetObservation(obs map[string]interface{}) error {
+// SetObservation for this Instance
+func (tr *Instance) SetObservation(obs map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -54,16 +54,16 @@ func (tr *VPC) SetObservation(obs map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this VPC
-func (tr *VPC) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Instance
+func (tr *Instance) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this VPC
-func (tr *VPC) GetParameters() (map[string]interface{}, error) {
+// GetParameters of this Instance
+func (tr *Instance) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (tr *VPC) GetParameters() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this VPC
-func (tr *VPC) SetParameters(params map[string]interface{}) error {
+// SetParameters for this Instance
+func (tr *Instance) SetParameters(params map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -81,10 +81,10 @@ func (tr *VPC) SetParameters(params map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this VPC using its observed tfState.
+// LateInitialize this Instance using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *VPC) LateInitialize(attrs []byte) (bool, error) {
-	params := &VPCParameters{}
+func (tr *Instance) LateInitialize(attrs []byte) (bool, error) {
+	params := &InstanceParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -95,6 +95,6 @@ func (tr *VPC) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *VPC) GetTerraformSchemaVersion() int {
+func (tr *Instance) GetTerraformSchemaVersion() int {
 	return 0
 }

@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: buckets.oss.alicloud.jet.crossplane.io
+  name: instances.instance.alicloud.jet.crossplane.io
 spec:
-  group: oss.alicloud.jet.crossplane.io
+  group: instance.alicloud.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - alicloudjet
-    kind: Bucket
-    listKind: BucketList
-    plural: buckets
-    singular: bucket
+    kind: Instance
+    listKind: InstanceList
+    plural: instances
+    singular: instance
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Bucket is the Schema for the Buckets API
+        description: Instance is the Schema for the Instances API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: BucketSpec defines the desired state of Bucket
+            description: InstanceSpec defines the desired state of Instance
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,181 +63,168 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  acl:
+                  allocatePublicIp:
+                    type: boolean
+                  autoReleaseTime:
                     type: string
-                  bucket:
+                  autoRenewPeriod:
+                    type: number
+                  availabilityZone:
                     type: string
-                  corsRule:
+                  creditSpecification:
+                    type: string
+                  dataDisks:
                     items:
                       properties:
-                        allowedHeaders:
-                          items:
-                            type: string
-                          type: array
-                        allowedMethods:
-                          items:
-                            type: string
-                          type: array
-                        allowedOrigins:
-                          items:
-                            type: string
-                          type: array
-                        exposeHeaders:
-                          items:
-                            type: string
-                          type: array
-                        maxAgeSeconds:
+                        autoSnapshotPolicyId:
+                          type: string
+                        category:
+                          type: string
+                        deleteWithInstance:
+                          type: boolean
+                        description:
+                          type: string
+                        encrypted:
+                          type: boolean
+                        kmsKeyId:
+                          type: string
+                        name:
+                          type: string
+                        performanceLevel:
+                          type: string
+                        size:
                           type: number
+                        snapshotId:
+                          type: string
                       required:
-                      - allowedMethods
-                      - allowedOrigins
+                      - size
                       type: object
                     type: array
-                  forceDestroy:
+                  deletionProtection:
                     type: boolean
-                  lifecycleRule:
-                    items:
-                      properties:
-                        abortMultipartUpload:
-                          items:
-                            properties:
-                              createdBeforeDate:
-                                type: string
-                              days:
-                                type: number
-                            type: object
-                          type: array
-                        enabled:
-                          type: boolean
-                        expiration:
-                          items:
-                            properties:
-                              createdBeforeDate:
-                                type: string
-                              date:
-                                type: string
-                              days:
-                                type: number
-                              expiredObjectDeleteMarker:
-                                type: boolean
-                            type: object
-                          type: array
-                        id:
-                          type: string
-                        noncurrentVersionExpiration:
-                          items:
-                            properties:
-                              days:
-                                type: number
-                            required:
-                            - days
-                            type: object
-                          type: array
-                        noncurrentVersionTransition:
-                          items:
-                            properties:
-                              days:
-                                type: number
-                              storageClass:
-                                type: string
-                            required:
-                            - days
-                            - storageClass
-                            type: object
-                          type: array
-                        prefix:
-                          type: string
-                        transitions:
-                          items:
-                            properties:
-                              createdBeforeDate:
-                                type: string
-                              days:
-                                type: number
-                              storageClass:
-                                type: string
-                            type: object
-                          type: array
-                      required:
-                      - enabled
-                      type: object
-                    type: array
-                  logging:
-                    items:
-                      properties:
-                        targetBucket:
-                          type: string
-                        targetPrefix:
-                          type: string
-                      required:
-                      - targetBucket
-                      type: object
-                    type: array
-                  loggingIsenable:
+                  deploymentSetId:
+                    type: string
+                  description:
+                    type: string
+                  dryRun:
                     type: boolean
-                  policy:
+                  forceDelete:
+                    type: boolean
+                  hostName:
                     type: string
-                  redundancyType:
+                  hpcClusterId:
                     type: string
-                  refererConfig:
+                  imageId:
+                    type: string
+                  includeDataDisks:
+                    type: boolean
+                  instanceChargeType:
+                    type: string
+                  instanceName:
+                    type: string
+                  instanceType:
+                    type: string
+                  internetChargeType:
+                    type: string
+                  internetMaxBandwidthIn:
+                    type: number
+                  internetMaxBandwidthOut:
+                    type: number
+                  ioOptimized:
+                    type: string
+                  isOutdated:
+                    type: boolean
+                  keyName:
+                    type: string
+                  kmsEncryptedPassword:
+                    type: string
+                  kmsEncryptionContext:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  passwordSecretRef:
+                    description: A SecretKeySelector is a reference to a secret key
+                      in an arbitrary namespace.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  period:
+                    type: number
+                  periodUnit:
+                    type: string
+                  privateIp:
+                    type: string
+                  region:
+                    description: Region is the region you'd like your resource to
+                      be created in.
+                    type: string
+                  renewalStatus:
+                    type: string
+                  resourceGroupId:
+                    type: string
+                  roleName:
+                    type: string
+                  secondaryPrivateIpAddressCount:
+                    type: number
+                  secondaryPrivateIps:
                     items:
-                      properties:
-                        allowEmpty:
-                          type: boolean
-                        referers:
-                          items:
-                            type: string
-                          type: array
-                      required:
-                      - referers
-                      type: object
+                      type: string
                     type: array
-                  serverSideEncryptionRule:
-                    items:
-                      properties:
-                        kmsMasterKeyId:
-                          type: string
-                        sseAlgorithm:
-                          type: string
-                      required:
-                      - sseAlgorithm
-                      type: object
-                    type: array
-                  storageClass:
+                  securityEnhancementStrategy:
                     type: string
+                  securityGroups:
+                    items:
+                      type: string
+                    type: array
+                  spotPriceLimit:
+                    type: number
+                  spotStrategy:
+                    type: string
+                  status:
+                    type: string
+                  subnetId:
+                    type: string
+                  systemDiskAutoSnapshotPolicyId:
+                    type: string
+                  systemDiskCategory:
+                    type: string
+                  systemDiskDescription:
+                    type: string
+                  systemDiskName:
+                    type: string
+                  systemDiskPerformanceLevel:
+                    type: string
+                  systemDiskSize:
+                    type: number
                   tags:
                     additionalProperties:
                       type: string
                     type: object
-                  transferAcceleration:
-                    items:
-                      properties:
-                        enabled:
-                          type: boolean
-                      required:
-                      - enabled
-                      type: object
-                    type: array
-                  versioning:
-                    items:
-                      properties:
-                        status:
-                          type: string
-                      required:
-                      - status
-                      type: object
-                    type: array
-                  website:
-                    items:
-                      properties:
-                        errorDocument:
-                          type: string
-                        indexDocument:
-                          type: string
-                      required:
-                      - indexDocument
-                      type: object
-                    type: array
+                  userData:
+                    type: string
+                  volumeTags:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  vswitchId:
+                    type: string
+                required:
+                - imageId
+                - instanceType
+                - region
+                - securityGroups
                 type: object
               providerConfigRef:
                 default:
@@ -284,21 +271,15 @@ spec:
             - forProvider
             type: object
           status:
-            description: BucketStatus defines the observed state of Bucket.
+            description: InstanceStatus defines the observed state of Instance.
             properties:
               atProvider:
                 properties:
-                  creationDate:
-                    type: string
-                  extranetEndpoint:
+                  deploymentSetGroupNo:
                     type: string
                   id:
                     type: string
-                  intranetEndpoint:
-                    type: string
-                  location:
-                    type: string
-                  owner:
+                  publicIp:
                     type: string
                 type: object
               conditions:
