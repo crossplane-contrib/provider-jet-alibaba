@@ -23,9 +23,7 @@ import (
 
 	instance "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/instance/instance"
 	managedkubernetes "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/managedk8s/managedkubernetes"
-	bucket "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/oss/bucket"
 	providerconfig "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/providerconfig"
-	vpc "github.com/crossplane-contrib/provider-jet-alibaba/internal/controller/vpc/vpc"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -34,9 +32,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		instance.Setup,
 		managedkubernetes.Setup,
-		bucket.Setup,
 		providerconfig.Setup,
-		vpc.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

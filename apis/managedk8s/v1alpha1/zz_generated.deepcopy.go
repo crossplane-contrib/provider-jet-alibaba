@@ -548,6 +548,11 @@ func (in *ManagedKubernetesParameters) DeepCopyInto(out *ManagedKubernetesParame
 			}
 		}
 	}
+	if in.Region != nil {
+		in, out := &in.Region, &out.Region
+		*out = new(string)
+		**out = **in
+	}
 	if in.ResourceGroupID != nil {
 		in, out := &in.ResourceGroupID, &out.ResourceGroupID
 		*out = new(string)

@@ -36,7 +36,6 @@ import (
 func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	name := managed.ControllerName(v1alpha1.Instance_GroupVersionKind.String())
 	var initializers managed.InitializerChain
-	initializers = append(initializers, managed.NewNameAsExternalName(mgr.GetClient()))
 	r := managed.NewReconciler(mgr,
 		xpresource.ManagedKind(v1alpha1.Instance_GroupVersionKind),
 		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), o.WorkspaceStore, o.SetupFn, o.Provider.Resources["alicloud_instance"])),

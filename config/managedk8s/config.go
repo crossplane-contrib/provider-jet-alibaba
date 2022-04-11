@@ -1,4 +1,4 @@
-package managed_kubernetes
+package managedk8s
 
 import "github.com/crossplane/terrajet/pkg/config"
 

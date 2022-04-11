@@ -205,6 +205,10 @@ spec:
                     items:
                       type: string
                     type: array
+                  region:
+                    description: Region is the region you'd like your resource to
+                      be created in.
+                    type: string
                   resourceGroupId:
                     type: string
                   retainResources:
@@ -312,6 +316,7 @@ spec:
                       type: string
                     type: array
                 required:
+                - region
                 - workerVswitchIds
                 type: object
               providerConfigRef:

@@ -24,9 +24,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	"github.com/crossplane-contrib/provider-jet-alibaba/config/instance"
-	"github.com/crossplane-contrib/provider-jet-alibaba/config/managed_kubernetes"
-	oss "github.com/crossplane-contrib/provider-jet-alibaba/config/oss/bucket"
-	"github.com/crossplane-contrib/provider-jet-alibaba/config/vpc"
+	"github.com/crossplane-contrib/provider-jet-alibaba/config/managedk8s"
 )
 
 const (
@@ -39,32 +37,38 @@ var providerSchema string
 
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
-	defaultResourceFn := func(name string, terraformResource *schema.Resource, opts ...tjconfig.ResourceOption) *tjconfig.Resource {
+	/*defaultResourceFn := func(name string, terraformResource *schema.Resource, opts ...tjconfig.ResourceOption) *tjconfig.Resource {
 		r := tjconfig.DefaultResource(name, terraformResource)
 		// Add any provider-specific defaulting here. For example:
 		//   r.ExternalName = tjconfig.IdentifierFromProvider
 		return r
-	}
+	}*/
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+		tjconfig.WithDefaultResourceFn(DefaultResource(
+			RegionAddition(),
+		)),
 		tjconfig.WithIncludeList([]string{
-			"alicloud_vpc$",
-			"alicloud_oss_bucket$",
 			"alicloud_instance$",
 			"alicloud_cs_managed_kubernetes$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
-		vpc.Configure,
-		oss.Configure,
 		instance.Configure,
-		managed_kubernetes.Configure,
+		managedk8s.Configure,
 	} {
 		configure(pc)
 	}
 
 	pc.ConfigureResources()
 	return pc
+}
+
+// DefaultResource returns a DefaultResoruceFn that makes sure the original
+// DefaultResource call is made with given options here.
+func DefaultResource(opts ...tjconfig.ResourceOption) tjconfig.DefaultResourceFn {
+	return func(name string, terraformResource *schema.Resource, orgOpts ...tjconfig.ResourceOption) *tjconfig.Resource {
+		return tjconfig.DefaultResource(name, terraformResource, append(orgOpts, opts...)...)
+	}
 }

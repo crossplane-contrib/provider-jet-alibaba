@@ -161,6 +161,11 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivateIP *string `json:"privateIp,omitempty" tf:"private_ip,omitempty"`
 
+	// Region is the region you'd like your resource to be created in.
+	// +terrajet:crd:field:TFTag=-
+	// +kubebuilder:validation:Required
+	Region *string `json:"region" tf:"-"`
+
 	// +kubebuilder:validation:Optional
 	RenewalStatus *string `json:"renewalStatus,omitempty" tf:"renewal_status,omitempty"`
 

@@ -166,6 +166,10 @@ spec:
                     type: string
                   privateIp:
                     type: string
+                  region:
+                    description: Region is the region you'd like your resource to
+                      be created in.
+                    type: string
                   renewalStatus:
                     type: string
                   resourceGroupId:
@@ -219,6 +223,7 @@ spec:
                 required:
                 - imageId
                 - instanceType
+                - region
                 - securityGroups
                 type: object
               providerConfigRef:

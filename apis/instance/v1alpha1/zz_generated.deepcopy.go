@@ -360,6 +360,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Region != nil {
+		in, out := &in.Region, &out.Region
+		*out = new(string)
+		**out = **in
+	}
 	if in.RenewalStatus != nil {
 		in, out := &in.RenewalStatus, &out.RenewalStatus
 		*out = new(string)

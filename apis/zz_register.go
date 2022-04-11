@@ -24,9 +24,7 @@ import (
 
 	v1alpha1 "github.com/crossplane-contrib/provider-jet-alibaba/apis/instance/v1alpha1"
 	v1alpha1managedk8s "github.com/crossplane-contrib/provider-jet-alibaba/apis/managedk8s/v1alpha1"
-	v1alpha1oss "github.com/crossplane-contrib/provider-jet-alibaba/apis/oss/v1alpha1"
 	v1alpha1apis "github.com/crossplane-contrib/provider-jet-alibaba/apis/v1alpha1"
-	v1alpha1vpc "github.com/crossplane-contrib/provider-jet-alibaba/apis/vpc/v1alpha1"
 )
 
 func init() {
@@ -34,9 +32,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1managedk8s.SchemeBuilder.AddToScheme,
-		v1alpha1oss.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
-		v1alpha1vpc.SchemeBuilder.AddToScheme,
 	)
 }
 
